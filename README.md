@@ -7,7 +7,7 @@
 - Zhen-Tang Huang
 - Ha Ngoc Hung
 - Ebba Löwgren
-- Faizan Mia
+- Faizan Mian
 - Can Hoai Nam
 - Gustav Pettersson
 - Fong Chun Tsai
