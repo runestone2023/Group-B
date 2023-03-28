@@ -18,8 +18,6 @@
 
 Work in sprints, all Tasks are created in the Backlog and moved to Todo during sprint meetings.
 
-TODO: Workflow?
-
 ## IDE setup
 
 [VS code](https://code.visualstudio.com/)
@@ -33,5 +31,3 @@ TODO: Workflow?
 ## Communication
 
 [Discord](https://discord.com/)
-
-TODO: How often do we meet?
