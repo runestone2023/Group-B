@@ -2,9 +2,8 @@ import { Router } from 'express';
 import jetValidator from 'jet-validator';
 
 import Paths from './constants/Paths';
-import User from '@src/models/User';
-import UserRoutes from './UserRoutes';
-
+import MovementRoutes from './MovementRoutes';
+import { isDriveCom } from './InputValidation';
 
 // **** Variables **** //
 
@@ -12,40 +11,21 @@ const apiRouter = Router(),
   validate = jetValidator();
 
 
-// ** Add UserRouter ** //
+// ** Add MovementRouter ** //
 
-const userRouter = Router();
+const movementRouter = Router();
 
-// Get all users
-userRouter.get(
-  Paths.Users.Get,
-  UserRoutes.getAll,
-);
+// ** Create endpoints ** //
+movementRouter.post(
+  Paths.Movement.Drive,
+  // Expects a command (com) that is in the type Drive
+  validate(['com', isDriveCom]),
+  MovementRoutes.drive
+)
 
-// Add one user
-userRouter.post(
-  Paths.Users.Add,
-  validate(['user', User.isUser]),
-  UserRoutes.add,
-);
-
-// Update one user
-userRouter.put(
-  Paths.Users.Update,
-  validate(['user', User.isUser]),
-  UserRoutes.update,
-);
-
-// Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
-  validate(['id', 'number', 'params']),
-  UserRoutes.delete,
-);
-
-// Add UserRouter
-apiRouter.use(Paths.Users.Base, userRouter);
-
+// ** Add Route to base ** //
+// Add endpoint to app with added base path
+apiRouter.use(Paths.Movement.Base, movementRouter);
 
 // **** Export default **** //
 

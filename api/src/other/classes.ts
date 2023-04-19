@@ -15,3 +15,14 @@ export class RouteError extends Error {
     this.status = status;
   }
 }
+
+/**
+ * Classes for movement
+ */
+
+// Represents what direction the robot should drive
+export enum DriveCom{
+  Forward = 1,
+  Stop = 0,
+  Backward = -1
+}
