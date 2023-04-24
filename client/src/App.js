@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <div className='h-screen bg-gray-200'>
+      <div className='flex-col'>
+        <p className='font-mono text-9xl text-center h-fit'>
+          Helper Bot
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <div className='flex-row'>
+          <ArrowUpwardIcon fontSize="xl" className='cursor-pointer' />
+          <ArrowDownwardIcon className='cursor-pointer' />
+          <RotateLeftIcon className='cursor-pointer' />
+        </div>
+      </div>  
     </div>
   );
 }
