@@ -21,7 +21,7 @@ const controlRouter = Router();
 // *** Endpoints for movement *** //
 movementRouter.post(
   Paths.Movement.Drive,
-  // Expects a command (com) that is in the type Drive
+  // Expects a command (com) that is a valid drive command
   validate(['com', validDriveCom]),
   MovementRoutes.drive
 )
@@ -30,7 +30,7 @@ movementRouter.post(
 // *** Endpoints for control *** //
 controlRouter.post(
   Paths.Control.Base,
-  // Expects a command (com) that is in the type Drive
+  // Expects a value (auto) that is a valid control switch
   validate(['auto', validControl]),
   MovementRoutes.control
 )

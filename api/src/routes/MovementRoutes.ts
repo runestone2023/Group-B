@@ -14,6 +14,7 @@ async function driveCommand(req: e.Request, res: e.Response) {
 async function switchControl(req: e.Request, res: e.Response) {
   // FIXME: Should tell the robot what it should do, might be a function call
   console.log(req.body)
+  // as the value is named auto the expected value to get is true or false
   var tmp = req.body["auto"] as boolean
   return res.status(HttpStatusCodes.OK).json({ tmp });
 }

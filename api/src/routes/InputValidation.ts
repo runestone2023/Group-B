@@ -10,6 +10,5 @@ export function validDriveCom(arg: unknown): arg is DriveCom {
 
 // Check if object is valid control switch 
 export function validControl(arg: unknown): arg is boolean {
-    console.log(typeof arg)
     return typeof arg === 'boolean'
 }
