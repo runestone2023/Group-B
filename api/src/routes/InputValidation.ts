@@ -3,7 +3,13 @@
 */
 import { DriveCom } from "@src/other/classes";
 
-// Check if object is a drive command
-export function isDriveCom(arg: unknown): arg is DriveCom {
+// Check if object is a valid drive command
+export function validDriveCom(arg: unknown): arg is DriveCom {
     return (arg as DriveCom) in DriveCom
+}
+
+// Check if object is valid control switch 
+export function validControl(arg: unknown): arg is boolean {
+    console.log(typeof arg)
+    return typeof arg === 'boolean'
 }
