@@ -1,14 +1,20 @@
 import * as e from 'express';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { DriveCom } from '@src/other/classes';
+import communication from '@src/robot/communication'
 
 // **** Functions **** //
 
 async function driveCommand(req: e.Request, res: e.Response) {
-  // FIXME: Should tell the robot what it should do, might be a function call
-  console.log(req.body)
-  var tmp = req.body["com"] as DriveCom
-  return res.status(HttpStatusCodes.OK).json({ tmp });
+
+  // Get 
+  var command: DriveCom = req.body["com"] 
+
+  communication.wsSendMessage(command);
+  communication.sseSendMessage(command);
+
+  // TODO: Remove tmp return value
+  return res.status(HttpStatusCodes.OK).json({ tmp: command });
 }
 
 
