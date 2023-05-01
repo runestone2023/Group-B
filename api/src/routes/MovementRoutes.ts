@@ -10,7 +10,7 @@ async function driveCommand(req: e.Request, res: e.Response) {
   // Get 
   var command: DriveCom = req.body["com"] 
 
-  communication.wsSendMessage(command);
+  // communication.wsSendMessage(command);
   communication.sseSendMessage(command);
 
   // TODO: Remove tmp return value

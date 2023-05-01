@@ -6,7 +6,7 @@ import * as e from 'express';
 
 // ** Constants ** //
 const port = 8081;
-const host = "127.0.0.1";
+const host = "";
 
 // TODO: Remove either SSE of Websocket
 // ** SSE implementation ** //
@@ -48,41 +48,42 @@ function sseSendMessage(command: any) {
   });
 }
 
-// const server = http.createServer(eventHandler);
-// server.listen(port, host, () => {
-//   console.log(`server running at http://${host}:${port}`);
-// });
+const server = http.createServer(eventHandler);
+server.listen(port, host, () => {
+  console.log(`server running at http://${host}:${port}`);
+});
 
 
 // ** Websocket implementation ** //
 
-const Websocket = require('ws');
-const wsServer = new Websocket.Server({ port: port });
+// const Websocket = require('ws');
+// const wsServer = new Websocket.Server({ port: port });
 
-wsServer.on('connection', (ws: any) => {
-  console.log('Client connected');
+// wsServer.on('connection', (ws: any) => {
+//   console.log('Client connected');
 
-  // How to handle an incoming message
-  ws.on("message", (msg: string) => {
-    // TODO: Add message handling
-    // msg is a hex string and needs conversion
-    console.log(Buffer.from(msg).toString())
-  });
+//   // How to handle an incoming message
+//   ws.on("message", (msg: string) => {
+//     // TODO: Add message handling
+//     // msg is a hex string and needs conversion
+//     console.log(Buffer.from(msg).toString())
+//   });
 
-  ws.on("close", () => {
-    console.log("Client disconnected")
-  });
-})
+//   ws.on("close", () => {
+//     console.log("Client disconnected")
+//   });
+// })
 
-// Broadcast command to all connected robots
-// This is not a good way of doing it and will not allow for individual commands to multiple robots
-function wsSendMessage(command: any) {
-  wsServer.clients.forEach((client: any) => {
-    client.send(`${JSON.stringify(command)}`)
-  });
-}
+// // Broadcast command to all connected robots
+// // This is not a good way of doing it and will not allow for individual commands to multiple robots
+// function wsSendMessage(command: any) {
+//   wsServer.clients.forEach((client: any) => {
+//     client.send(`${JSON.stringify(command)}`)
+//   });
+// }
 
 export default {
-    wsSendMessage,
-    sseSendMessage
+    // wsSendMessage,
+    sseSendMessage,
+    server
 }
