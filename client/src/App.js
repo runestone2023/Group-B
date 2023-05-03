@@ -15,7 +15,7 @@ function App() {
     return () => stopCounter(); // when App is unmounted we should stop counter
   }, []);
 
-  // styles
+  // style
 
   const elementStyle = {
     margin: '5px',
