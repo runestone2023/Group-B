@@ -24,6 +24,8 @@ import { RouteError } from '@src/other/classes';
 // **** Variables **** //
 
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 
 // **** Setup **** //
@@ -63,6 +65,23 @@ app.use((
   }
   return res.status(status).json({ error: err.message });
 });
+
+// ** API Docs Content ** //
+
+// Set Swagger
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Documentation',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./src/routes/*.ts'], // files containing annotations as above
+};
+const swaggerSpec = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // ** Front-End Content ** //
