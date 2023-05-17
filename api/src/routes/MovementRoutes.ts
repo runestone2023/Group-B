@@ -16,12 +16,13 @@ async function driveCommand(req: e.Request, res: e.Response) {
     return res.status(HttpStatusCodes.BAD_REQUEST).json("The robot is set to automatic mode, cannot control it manually.");
   }
 
-  // FIXME: Should tell the robot what it should do, might be a function call
   console.log(req.body)
 
-  var tmp = req.body["com"] as DriveCom
+  var command = req.body["com"] as DriveCom
 
-  return res.status(HttpStatusCodes.OK).json({ tmp });
+  communication.sseSendMessage(command)
+
+  return res.status(HttpStatusCodes.OK).json({ tmp: command });
 }
 
 async function switchControl(req: e.Request, res: e.Response) {
