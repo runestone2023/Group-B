@@ -21,6 +21,8 @@ async function driveCommand(req: e.Request, res: e.Response) {
 
   var tmp = req.body["com"] as DriveCom
 
+  communication.sseSendMessage(tmp)
+
   return res.status(HttpStatusCodes.OK).json({ tmp });
 }
 

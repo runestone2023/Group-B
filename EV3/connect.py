@@ -1,46 +1,60 @@
-#!/usr/bin/env pybricks-micropython
+
 import socket
-import asyncio
+import uasyncio
 
 # Port and ip to server
 PORT = 8081
 IP = "192.168.1.56"
-
-# Needed for the pybricks version of asyncio
-# Gives us a usable address to connect to
-socket_address = socket.getaddrinfo(IP, PORT)[0][-1]
+READ_SIZE = 1024
 
 
-def sse_mvp():
+async def sse_connect():
     """
-        MVP for SSE connection
-        This code is not async so will only work until the robot has to do more then listen to commands
-    """
-    # Create a socket client
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        Create a connection to the server
 
-    print("Socket created")
+        Returns: Reader to socket
+    """
+    print("Waiting for connection")
 
     # Connect to remote socket server
-    client.connect(socket_address)
+    reader, writer = await uasyncio.open_connection(IP, PORT)
 
-    print("Socket connected\n")
+    print("Socket connected")
 
-    handshake = "GET / HTTP/1.1\r\n\
+    connect_request = "GET / HTTP/1.1\r\n\
                 Cache-Control: no-cache\r\n\
                 Connection: keep-alive\r\n\
                 Host: {0}:{1}\r\n\r\n".format(IP, PORT).encode()
     # Tell the server that you are connected and listening
-    client.send(handshake)
+    writer.write(connect_request)
+    writer.drain()
+
+    print("Connection request sent")
 
     # Print server response, should check what the response code is
     # If the response code is not 200 something is wrong
-    print(client.recv(1024).decode())
+    response = await reader.read(READ_SIZE)
+    print(response)
+    print("\nConnection response received\n")
 
-    # Listen for events from the server
-    while True:
-        response = client.recv(1024)
-        print(response)
+    return reader
+
+
+def get_response_info(resp):
+    """
+        Get the event type and data from a response
+        Assumes that both event and data is present in the response
+
+        Returns: 
+            String: Event type
+            int: Event data
+    """
+    event = resp.decode("utf-8").split("event: ", 1)[1].split("\r", 1)[0].replace('"', "").lower()
+
+    # Assumes only one piece of data per response
+    data = resp.decode("utf-8").split("data: ", 1)[1].split("\r", 1)[0]
+
+    return event, data
 
 
 def websocket_mvp():
@@ -50,7 +64,7 @@ def websocket_mvp():
     print("Socket created")
 
     # Connect to remote socket server
-    client.connect(socket_address)
+    client.connect(SOCKET_ADDRESS)
 
     print("Socket connected\n")
 
@@ -72,8 +86,3 @@ def websocket_mvp():
     # while True:
     #     response = client.recv(1024)
     #     print(response)
-
-
-if __name__ == "__main__":
-    # sse_mvp()
-    websocket_mvp()
