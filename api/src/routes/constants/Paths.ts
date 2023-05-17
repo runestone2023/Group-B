@@ -11,6 +11,9 @@ const Paths = {
     Base: '/move',
     Drive: '/drive'
   },
+  Control: {
+    Base: '/control'
+  },
 };
 
 
