@@ -1,6 +1,6 @@
 import * as e from 'express';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
-import { DriveCom } from '@src/other/classes';
+import { DriveCom, EventTypes } from '@src/other/classes';
 import communication from '@src/robot/communication'
 
 
@@ -16,11 +16,11 @@ async function driveCommand(req: e.Request, res: e.Response) {
     return res.status(HttpStatusCodes.BAD_REQUEST).json("The robot is set to automatic mode, cannot control it manually.");
   }
 
-  console.log(req.body)
-
   var command = req.body["com"] as DriveCom
+  
+  console.log(EventTypes.Drive, command)
 
-  communication.sseSendMessage(command)
+  communication.sseSendMessage(EventTypes.Drive, command)
 
   return res.status(HttpStatusCodes.OK).json({ tmp: command });
 }
@@ -37,8 +37,9 @@ async function switchControl(req: e.Request, res: e.Response) {
   // Update the control mode
   autoMode = modeSwitchedTo
 
-    // FIXME: Should tell the robot what it should do, might be a function call
-    console.log(req.body)
+  console.log(EventTypes.SwitchControl, modeSwitchedTo)
+
+  communication.sseSendMessage(EventTypes.SwitchControl, modeSwitchedTo)
 
   return res.status(HttpStatusCodes.OK).json({ tmp: modeSwitchedTo });
 }

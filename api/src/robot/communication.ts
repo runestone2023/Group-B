@@ -2,6 +2,7 @@
  * All functionality to communicate with the robot
  */
 import * as e from 'express';
+import { EventTypes } from '@src/other/classes';
 
 
 // ** Constants ** //
@@ -41,7 +42,7 @@ function eventHandler(req: e.Request, res: e.Response) {
 
 // Broadcast command to all connected robots
 // This is not a good way of doing it as it will not allow for individual commands to multiple robots
-function sseSendMessage(command: any) {
+function sseSendMessage(event: EventTypes, command: any) {
   clients.forEach((client: any) => {
     // To follow conventions a message is formatted as "data: {message}\n\n"
 
