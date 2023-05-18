@@ -1,4 +1,6 @@
 from connect import READ_SIZE, get_response_info
+from commands import drive, grab
+
 
 
 class Events():
@@ -20,13 +22,16 @@ async def event_loop(reader):
         # Get event and data from bytestring
         event, data = get_response_info(response)
 
+
         if event == Events.DRIVE:
             # TODO: If data 1 or -1 is given drive until 0 is received?
             print("Drive in {}, direction".format(data))
+            drive(data)
             pass
         elif event == Events.GRAB:
             # TODO: Call function to grab or release depending on data
             print("Grab or release {}".format(data))
+            grab(data)
             pass
         elif event == Events.SWITCH_CONTROL:
             # TODO: Switch to mode specified by data

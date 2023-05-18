@@ -52,7 +52,7 @@ def get_response_info(resp):
     event = resp.decode("utf-8").split("event: ", 1)[1].split("\r", 1)[0].replace('"', "").lower()
 
     # Assumes only one piece of data per response
-    data = resp.decode("utf-8").split("data: ", 1)[1].split("\r", 1)[0]
+    data = int(resp.decode("utf-8").split("data: ", 1)[1].split("\r", 1)[0])
 
     return event, data
 
