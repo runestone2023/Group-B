@@ -1,9 +1,10 @@
 import usocket
+
 # import uasyncio
 
 # Port and ip to server
 PORT = 8081
-IP = "172.20.10.3"
+IP = "192.168.250.30"
 READ_SIZE = 1024
 
 sock = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)

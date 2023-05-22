@@ -37,7 +37,7 @@ def drive(data):
     if data == 1:
         robot.drive(100, 0)
     elif data == -1:
-        robot.drive(-100)
+        robot.drive(-100, 0)
     elif data == 0:
         robot.stop()
     elif data == 2:
