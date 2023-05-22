@@ -17,12 +17,23 @@ export class RouteError extends Error {
 }
 
 /**
+ * Possible events
+ */
+
+export enum EventTypes{
+  Drive = "drive",
+  SwitchControl = "switch"
+}
+
+/**
  * Classes for movement
  */
 
 // Represents what direction the robot should drive
 export enum DriveCom{
+  Clockwise = 2,
   Forward = 1,
   Stop = 0,
-  Backward = -1
+  Backward = -1,
+  CounterClockwise = -2
 }
