@@ -1,13 +1,16 @@
-import socket
-import uasyncio
+import usocket
+# import uasyncio
 
 # Port and ip to server
 PORT = 8081
 IP = "172.20.10.3"
 READ_SIZE = 1024
 
+sock = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)
+addr = usocket.getaddrinfo(IP, PORT)[0][-1]
 
-async def sse_connect():
+
+def sse_connect():
     """
     Create a connection to the server
 
@@ -16,7 +19,7 @@ async def sse_connect():
     print("Waiting for connection")
 
     # Connect to remote socket server
-    reader, writer = await uasyncio.open_connection(IP, PORT)
+    sock.connect(addr)
 
     print("Socket connected")
 
@@ -27,18 +30,18 @@ async def sse_connect():
         IP, PORT
     ).encode()
     # Tell the server that you are connected and listening
-    writer.write(connect_request)
-    writer.drain()
+    sock.send(connect_request)
+    # writer.drain()
 
     print("Connection request sent")
 
     # Print server response, should check what the response code is
     # If the response code is not 200 something is wrong
-    response = await reader.read(READ_SIZE)
+    response = sock.recv(READ_SIZE)
     print(response)
     print("\nConnection response received\n")
 
-    return reader
+    return sock
 
 
 def get_response_info(resp):
@@ -64,34 +67,34 @@ def get_response_info(resp):
     return event, data
 
 
-def websocket_mvp():
-    # Create a socket client
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# def websocket_mvp():
+#     # Create a socket client
+#     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    print("Socket created")
+#     print("Socket created")
 
-    # Connect to remote socket server
-    client.connect(SOCKET_ADDRESS)
+#     # Connect to remote socket server
+#     client.connect(SOCKET_ADDRESS)
 
-    print("Socket connected\n")
+#     print("Socket connected\n")
 
-    handshake = "GET / HTTP/1.1\r\n\
-    Host: {0}:{1}\r\n\
-    Origin: http://example.com\r\n\
-    Connection: Upgrade\r\n\
-    Upgrade: websocket\r\n\
-    Sec-WebSocket-Key: q4xkcO32u266gldTuKaSOw==\r\n\
-    Sec-WebSocket-Version: 13\r\n\r\n".format(
-        IP, PORT
-    ).encode()
-    print(handshake.decode())
-    # Tell the server that you are connected and listening
-    client.send(handshake)
+#     handshake = "GET / HTTP/1.1\r\n\
+#     Host: {0}:{1}\r\n\
+#     Origin: http://example.com\r\n\
+#     Connection: Upgrade\r\n\
+#     Upgrade: websocket\r\n\
+#     Sec-WebSocket-Key: q4xkcO32u266gldTuKaSOw==\r\n\
+#     Sec-WebSocket-Version: 13\r\n\r\n".format(
+#         IP, PORT
+#     ).encode()
+#     print(handshake.decode())
+#     # Tell the server that you are connected and listening
+#     client.send(handshake)
 
-    # Print server response, should check what the response code is
-    # If the response code is not 200 something is wrong
-    print(client.recv(1024).decode())
+#     # Print server response, should check what the response code is
+#     # If the response code is not 200 something is wrong
+#     print(client.recv(1024).decode())
 
-    # while True:
-    #     response = client.recv(1024)
-    #     print(response)
+#     # while True:
+#     #     response = client.recv(1024)
+#     #     print(response)
