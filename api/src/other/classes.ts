@@ -22,6 +22,7 @@ export class RouteError extends Error {
 
 export enum EventTypes{
   Drive = "drive",
+  Grab = "grab",
   SwitchControl = "switch"
 }
 
@@ -36,4 +37,9 @@ export enum DriveCom{
   Stop = 0,
   Backward = -1,
   CounterClockwise = -2
+}
+
+export enum GrabCom{
+  Grab = 1,
+  Release = 0
 }
