@@ -8,6 +8,7 @@ from pybricks.ev3devices import (
 from pybricks.parameters import Port
 from pybricks.robotics import DriveBase
 
+
 # Initialize the EV3 Brick and Motors
 ev3 = EV3Brick()
 left_motor = Motor(port=Port.B)
