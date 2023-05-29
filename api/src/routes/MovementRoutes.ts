@@ -1,6 +1,6 @@
 import * as e from 'express';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
-import { DriveCom, EventTypes } from '@src/other/classes';
+import { DriveCom, EventTypes, GrabCom } from '@src/other/classes';
 import communication from '@src/robot/communication'
 
 
@@ -44,10 +44,26 @@ async function switchControl(req: e.Request, res: e.Response) {
   return res.status(HttpStatusCodes.OK).json({ tmp: modeSwitchedTo });
 }
 
+async function grabCommand(req: e.Request, res: e.Response) {
+  // Blocks the command if the robot is in auto mode
+  if (autoMode){
+    return res.status(HttpStatusCodes.BAD_REQUEST).json("The robot is set to automatic mode, cannot control it manually.");
+  }
+
+  var command = req.body["grab"] as GrabCom
+  
+  console.log(EventTypes.Grab, command)
+
+  communication.sseSendMessage(EventTypes.Grab, +command)
+
+  return res.status(HttpStatusCodes.OK).json({ tmp: command });
+}
+
 
 // **** Export default **** //
 
 export default {
   drive: driveCommand,
   control: switchControl,
+  grab: grabCommand
 } as const;

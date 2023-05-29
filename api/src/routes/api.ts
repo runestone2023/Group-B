@@ -3,7 +3,7 @@ import jetValidator from 'jet-validator';
 
 import Paths from './constants/Paths';
 import MovementRoutes from './MovementRoutes';
-import { validControl, validDriveCom } from './InputValidation';
+import { validControl, validDriveCom, validGrabCom } from './InputValidation';
 
 // **** Variables **** //
 
@@ -24,6 +24,13 @@ movementRouter.post(
   // Expects a command (com) that is a valid drive command
   validate(['com', validDriveCom]),
   MovementRoutes.drive
+)
+
+movementRouter.post(
+  Paths.Movement.Grab,
+  // Expects a command (com) that is a valid drive command
+  validate(['grab', validGrabCom]),
+  MovementRoutes.grab
 )
 
 
