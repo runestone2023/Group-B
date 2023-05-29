@@ -9,7 +9,8 @@ const Paths = {
   Base: '/api',
   Movement: {
     Base: '/move',
-    Drive: '/drive'
+    Drive: '/drive',
+    Grab: '/grab'
   },
   Control: {
     Base: '/control'
