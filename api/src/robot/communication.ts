@@ -46,8 +46,7 @@ function sseSendMessage(event: EventTypes, command: any) {
   clients.forEach((client: any) => {
     // To follow conventions a message is formatted as "data: {message}\n\n"
 
-    // FIXME: Need to send real event type, should the robot move, grab, or switch control mode?
-    client.write(`event: ${JSON.stringify(null)}\r\ndata: ${JSON.stringify(command)}\r\n`)
+    client.write(`event: ${JSON.stringify(event)}\r\ndata: ${JSON.stringify(command)}\r\n`)
   });
 }
 
