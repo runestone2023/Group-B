@@ -19,6 +19,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
+import cors from "cors";
 
 
 // **** Variables **** //
@@ -42,6 +43,12 @@ if (EnvVars.NodeEnv === NodeEnvs.Dev) {
 if (EnvVars.NodeEnv === NodeEnvs.Production) {
   app.use(helmet());
 }
+
+app.use(cors(
+  {
+    origin: ['http://localhost:1337','http://localhost:3001','http://localhost:3002','http://localhost:3000']
+  }
+))
 
 // Add APIs, must be after middleware
 app.use(Paths.Base, BaseRouter);
