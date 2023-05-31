@@ -19,8 +19,6 @@ function SwitchCard({ className, mode = Mode.MANUAL, setMode }: Props) {
   const onModeChange = async () => {
     setLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setMode(1 - mode);
       const res = await controlService.control(mode === Mode.AUTO);
       if (!res) {
         setNotification({
@@ -28,6 +26,8 @@ function SwitchCard({ className, mode = Mode.MANUAL, setMode }: Props) {
           message: "Error",
           description: "Something Wrong",
         });
+      }else{
+        setMode(1 - mode);
       }
     } catch (e) {
       console.log(e);
