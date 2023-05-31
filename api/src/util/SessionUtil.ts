@@ -40,6 +40,7 @@ async function addSessionData(
   data: string | object,
 ): Promise<Response> {
   if (!res || !data) {
+    console.log('ok');
     throw new RouteError(HttpStatusCodes.BAD_REQUEST, Errors.ParamFalsey);
   }
   // Setup JWT

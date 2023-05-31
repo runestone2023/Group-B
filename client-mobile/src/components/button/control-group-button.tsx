@@ -28,8 +28,8 @@ function CtrlGroupButton({ disabled = false }: CtrlProps) {
   const ReleaseHandler = async () => {
     setLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      //await controlService.control(false);
+      //await new Promise((resolve) => setTimeout(resolve, 2000));
+      await controlService.control(false);
       setStatus(ControlStatus.RELEASING);
     } catch (e) {
       console.log(e);
@@ -40,8 +40,8 @@ function CtrlGroupButton({ disabled = false }: CtrlProps) {
     setLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      //await controlService.control(true);
+      //await new Promise((resolve) => setTimeout(resolve, 2000));
+      await controlService.control(true);
 
       setStatus(ControlStatus.GRABBING);
     } catch (e) {

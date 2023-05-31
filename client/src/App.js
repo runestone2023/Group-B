@@ -4,6 +4,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
+import axios from ""
 
 function App() {
   const [text, setText] = useState("");
@@ -56,8 +57,9 @@ function App() {
     console.log("Moving Forward");
     setText("Moving Forward");
 
-    fetch(
-      { movementEndpoint },
+    axios(
+      movementEndpoint,
+      driveForward,
       {
         method: "POST",
         mode: "cors",
@@ -70,7 +72,7 @@ function App() {
     console.log("Moving Backwards");
     setText("Moving Backwards");
 
-    fetch(movementEndpoint, {
+    axios(movementEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(driveBackwards),
@@ -78,7 +80,7 @@ function App() {
   }
 
   function handleReleaseOfButton() {
-    fetch(movementEndpoint, {
+    axios(movementEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(driveStop),
@@ -89,7 +91,7 @@ function App() {
     console.log("Rotating left");
     setText("Rotating left");
 
-    fetch(movementEndpoint, {
+    axios(movementEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(rotateCounterClockwise),
@@ -100,7 +102,7 @@ function App() {
     console.log("Rotating left");
     setText("Rotating right");
 
-    fetch(movementEndpoint, {
+    axios(movementEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(rotateClockwise),
@@ -125,7 +127,7 @@ function App() {
     setText("Opening Grip");
     
 
-    fetch(gripEndpoint, {
+    axios(gripEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(openGrip),
@@ -136,7 +138,7 @@ function App() {
     console.log("Closing Grip");
     setText("Closing Grip");
 
-    fetch(gripEndpoint, {
+    axios(gripEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(closeGrip),
@@ -156,7 +158,7 @@ function App() {
   function handleEnableAutonomousControlOnClick() {
     console.log("Changing control");
 
-    fetch(changeControlEndpoint, {
+    axios(changeControlEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(enableAutonomousControl),
@@ -165,7 +167,7 @@ function App() {
   function handleEnableManualControlOnClick() {
     console.log("Changing control");
 
-    fetch(changeControlEndpoint, {
+    axios(changeControlEndpoint, {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(enableManualControl),
